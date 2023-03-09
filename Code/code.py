@@ -7,7 +7,7 @@
 from itertools import permutations, product
 
 
-def calculate_onto_functions(S, T, repeated=False):
+def calculate_onto_functions(S, T):
 
     # Calculate the number of onto functions from S to T
     n = len(S)
@@ -16,29 +16,43 @@ def calculate_onto_functions(S, T, repeated=False):
 
     # List all of the onto functions from S to T
     onto = []
-    if not repeated:
-        for t in permutations(T, n):
-            onto.append(dict(zip(S, t)))
-    else:
-        for t in product(T, repeat=n):
-            onto.append(dict(zip(S, t)))
+
+    for t in product(T, repeat=n):
+        onto.append(dict(zip(S, t)))
 
     return num_onto, onto
 
 
 # Example Usage
-S = {1, 2, 3}
-T = {'a', 'b', 'c', 'd'}
+S = {1, 2, 3, 4}
+T = {'a', 'b', 'c'}
 
-repeated = input(
-    "Allow repeated elements in the onto functions? (y/n): ")
-repeated = repeated.lower() == 'y'
+print("S:", S)
+print("T:", T)
 
-num_onto, onto = calculate_onto_functions(S, T, repeated)
+num_onto, onto = calculate_onto_functions(S, T)
 
-print("Number of onto functions from S to T:", num_onto)
+print("\nNumber of onto functions from S to T:", num_onto)
 
 # Display all of the onto functions
-print("All of the onto functions from S to T:")
+print("All of the onto functions from S to T:\n")
+for f in onto:
+    print(f)
+
+print("---------------------------------")
+print("Try with your own sets of integers!\n")
+
+
+print("Enter a set S of integers separated by spaces:")
+S = set(map(int, input().split()))
+print("Enter a set T of integers separated by spaces:")
+T = set(map(int, input().split()))
+
+num_onto, onto = calculate_onto_functions(S, T)
+
+print("\nNumber of onto functions from S to T:", num_onto)
+
+# Display all of the onto functions
+print("All of the onto functions from S to T:\n")
 for f in onto:
     print(f)
