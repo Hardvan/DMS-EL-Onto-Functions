@@ -4,10 +4,20 @@
 # * set S to a set T, where S and T are finite sets of
 # * various sizes. List all of them.
 
-from itertools import permutations, product
+from itertools import product
 
 
 def calculate_onto_functions(S, T):
+    """Calculate the number of onto functions from S to T.
+
+    Args:
+        S: A set of integers.
+        T: A set of integers.
+
+    Returns:
+        num_onto: The number of onto functions from S to T.
+        onto: A list of all of the onto functions from S to T.
+    """
 
     # Calculate the number of onto functions from S to T
     n = len(S)
@@ -40,8 +50,8 @@ for f in onto:
     print(f)
 
 print("---------------------------------")
-print("Try with your own sets of integers!\n")
 
+print("Try with your own sets of integers!\n")
 
 print("Enter a set S of integers separated by spaces:")
 S = set(map(int, input().split()))
