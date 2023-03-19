@@ -1,13 +1,15 @@
 
 # ? Problem Statement
 # * Calculate the number of onto functions from a
-# * set S to a set T, where S and T are finite sets of
+# * set A to a set B, where A and B are finite sets of
 # * various sizes. List all of them.
 
 from itertools import product
 
 
 def fact(n):
+    """Returns the factorial of n.
+    """
 
     if n <= 1:
         return 1
@@ -15,11 +17,13 @@ def fact(n):
 
 
 def nCr(n, r):
+    """Returns C(n, r)
+    """
 
     return (fact(n) / (fact(r) * fact(n - r)))
 
 
-def calculate_onto_functions(A, B):
+def calculate_onto(A, B):
     """Calculate the number of onto functions from A to B.
 
     Args:
@@ -37,7 +41,6 @@ def calculate_onto_functions(A, B):
     if m < n:
         print("There are no onto functions from A to B.")
         return 0, []
-
     num_onto = 0
     for k in range(0, n):  # 0 to n-1
         num_onto += ((-1)**k) * nCr(n, n-k) * ((n-k)**m)
@@ -48,39 +51,46 @@ def calculate_onto_functions(A, B):
         if len(set(b)) == n:
             onto.append(dict(zip(A, b)))
 
+    # product here generates all possible combinations of elements in set B with length m.
+    # Eg: B = {1, 2, 3}, m = 2
+    # product(B, repeat=m) = {(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)}
+
     return int(num_onto), onto
 
 
+def display(A, B):
+    """Calculate and then display the number of onto functions from A to B and lists all of them.
+    """
+
+    num_onto, onto = calculate_onto(A, B)
+
+    print("\nNumber of onto functions from A to B:", num_onto)
+
+    if num_onto == 0:
+        print("There are no onto functions from A to B.")
+        return
+
+    print("All of the onto functions from A to B:\n")
+    for i, f in enumerate(onto):
+        print(f"{i+1}: {f}")
+
+
 # Example Usage
-S = {1, 2, 3, 4}
-T = {'a', 'b', 'c'}
+A = {1, 2, 3, 4}
+B = {'a', 'b', 'c'}
 
-print("S:", S)
-print("T:", T)
+print("A:", A)
+print("B:", B)
 
-num_onto, onto = calculate_onto_functions(S, T)
-
-print("\nNumber of onto functions from S to T:", num_onto)
-
-# Display all of the onto functions
-print("All of the onto functions from S to T:\n")
-for i, f in enumerate(onto):
-    print(f"{i+1}: {f}")
+display(A, B)
 
 print("---------------------------------")
 
 print("Try with your own sets of integers!\n")
 
-print("Enter a set S of integers separated by spaces:")
-S = set(map(int, input().split()))
-print("Enter a set T of integers separated by spaces:")
-T = set(map(int, input().split()))
+print("Enter a set A of integers separated by spaces:")
+A = set(map(int, input().split()))
+print("Enter a set B of integers separated by spaces:")
+B = set(map(int, input().split()))
 
-num_onto, onto = calculate_onto_functions(S, T)
-
-print("\nNumber of onto functions from S to T:", num_onto)
-
-# Display all of the onto functions
-print("All of the onto functions from S to T:\n")
-for i, f in enumerate(onto):
-    print(f"{i+1}: {f}")
+display(A, B)
