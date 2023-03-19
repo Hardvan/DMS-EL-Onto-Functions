@@ -47,18 +47,19 @@ def calculate_onto(A, B):
 
     # List all of the onto functions from A to B
     onto = []
-    for b in product(B, repeat=m):
-        if len(set(b)) == n:
+    for b in product(B, repeat=m):  # Combinations with repetition
+        if len(set(b)) == n:  # b contains all elements of B (range = co-domain)
             onto.append(dict(zip(A, b)))
 
     # product here generates all possible combinations of elements in set B with length m.
-    # Eg: B = {1, 2, 3}, m = 2
-    # product(B, repeat=m) = {(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)}
+    # Eg: B = {1, 2}, m = 3
+    # product(B, repeat=m)
+    # = {(1, 1, 1), (1, 1, 2), (1, 2, 1), (1, 2, 2), (2, 1, 1), (2, 1, 2), (2, 2, 1), (2, 2, 2)}
 
     return int(num_onto), onto
 
 
-def display(A, B):
+def calc_and_display(A, B):
     """Calculate and then display the number of onto functions from A to B and lists all of them.
     """
 
@@ -82,7 +83,7 @@ B = {'a', 'b', 'c'}
 print("A:", A)
 print("B:", B)
 
-display(A, B)
+calc_and_display(A, B)
 
 print("---------------------------------")
 
@@ -90,7 +91,7 @@ print("Try with your own sets of integers!\n")
 
 print("Enter a set A of integers separated by spaces:")
 A = set(map(int, input().split()))
-print("Enter a set B of integers separated by spaces:")
-B = set(map(int, input().split()))
+print("Enter a set B of characters separated by spaces:")
+B = set(input().split())
 
-display(A, B)
+calc_and_display(A, B)
