@@ -25,14 +25,6 @@ def nCr(n, r):
 
 def calculate_onto(A, B):
     """Calculate the number of onto functions from A to B.
-
-    Args:
-        A: A set of integers.
-        B: A set of integers.
-
-    Returns:
-        num_onto: The number of onto functions from A to B.
-        onto: A list of all of the onto functions from A to B.
     """
 
     # Calculate the number of onto functions from A to B
@@ -51,10 +43,12 @@ def calculate_onto(A, B):
         if len(set(b)) == n:  # b contains all elements of B (range = co-domain)
             onto.append(dict(zip(A, b)))
 
-    # product here generates all possible combinations of elements in set B with length m.
+    # product here generates all possible combinations
+    # of elements in set B with length m.
     # Eg: B = {1, 2}, m = 3
     # product(B, repeat=m)
-    # = {(1, 1, 1), (1, 1, 2), (1, 2, 1), (1, 2, 2), (2, 1, 1), (2, 1, 2), (2, 2, 1), (2, 2, 2)}
+    # = {(1, 1, 1), (1, 1, 2), (1, 2, 1), (1, 2, 2),
+    # (2, 1, 1), (2, 1, 2), (2, 2, 1), (2, 2, 2)}
 
     return int(num_onto), onto
 
