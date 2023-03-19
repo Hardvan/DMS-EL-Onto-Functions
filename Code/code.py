@@ -7,30 +7,48 @@
 from itertools import product
 
 
-def calculate_onto_functions(S, T):
-    """Calculate the number of onto functions from S to T.
+def fact(n):
+
+    if n <= 1:
+        return 1
+    return n * fact(n - 1)
+
+
+def nCr(n, r):
+
+    return (fact(n) / (fact(r) * fact(n - r)))
+
+
+def calculate_onto_functions(A, B):
+    """Calculate the number of onto functions from A to B.
 
     Args:
-        S: A set of integers.
-        T: A set of integers.
+        A: A set of integers.
+        B: A set of integers.
 
     Returns:
-        num_onto: The number of onto functions from S to T.
-        onto: A list of all of the onto functions from S to T.
+        num_onto: The number of onto functions from A to B.
+        onto: A list of all of the onto functions from A to B.
     """
 
-    # Calculate the number of onto functions from S to T
-    n = len(S)
-    m = len(T)
-    num_onto = m ** n
+    # Calculate the number of onto functions from A to B
+    m = len(A)
+    n = len(B)
+    if m < n:
+        print("There are no onto functions from A to B.")
+        return 0, []
 
-    # List all of the onto functions from S to T
+    num_onto = 0
+    for k in range(0, n):  # 0 to n-1
+        num_onto += ((-1)**k) * nCr(n, n-k) * ((n-k)**m)
+
+    # List all of the onto functions from A to B
     onto = []
+    for b in product(B, repeat=m):
+        if len(set(b)) == n:
+            onto.append(dict(zip(A, b)))
 
-    for t in product(T, repeat=n):
-        onto.append(dict(zip(S, t)))
-
-    return num_onto, onto
+    return int(num_onto), onto
 
 
 # Example Usage
@@ -46,8 +64,8 @@ print("\nNumber of onto functions from S to T:", num_onto)
 
 # Display all of the onto functions
 print("All of the onto functions from S to T:\n")
-for f in onto:
-    print(f)
+for i, f in enumerate(onto):
+    print(f"{i+1}: {f}")
 
 print("---------------------------------")
 
@@ -64,5 +82,5 @@ print("\nNumber of onto functions from S to T:", num_onto)
 
 # Display all of the onto functions
 print("All of the onto functions from S to T:\n")
-for f in onto:
-    print(f)
+for i, f in enumerate(onto):
+    print(f"{i+1}: {f}")
