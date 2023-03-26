@@ -30,10 +30,13 @@ def calculate_onto(A, B):
     # Calculate the number of onto functions from A to B
     m = len(A)
     n = len(B)
+    # m >= n for valid onto function
     if m < n:
         print("There are no onto functions from A to B.")
         return 0, []
+
     num_onto = 0
+    # n! * Sterlings Formula of the Second Kind
     for k in range(0, n):  # 0 to n-1
         num_onto += ((-1)**k) * nCr(n, n-k) * ((n-k)**m)
 
@@ -45,7 +48,7 @@ def calculate_onto(A, B):
 
     # product here generates all possible combinations
     # of elements in set B with length m.
-    # Eg: B = {1, 2}, m = 3
+    # Eg: B = {1, 2}, m = |A| = 3
     # product(B, repeat=m)
     # = {(1, 1, 1), (1, 1, 2), (1, 2, 1), (1, 2, 2),
     # (2, 1, 1), (2, 1, 2), (2, 2, 1), (2, 2, 2)}
